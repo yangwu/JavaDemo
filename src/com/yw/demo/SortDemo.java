@@ -98,14 +98,9 @@ public class SortDemo {
 	private void swap(int[] nums, int x, int y) {
 		if (x == y)
 			return;
-		// System.out.println(nums[x] + "|" + nums[y]);
-
 		int temp = nums[x];
 		nums[x] = nums[y];
 		nums[y] = temp;
-
-		// System.out.println(nums[x] + "|" + nums[y]);
-
 	}
 
 	// 简单插入排序：
@@ -161,7 +156,6 @@ public class SortDemo {
 					isSorted = false;
 				}
 			}
-			System.out.println("bubble Sort current index:" + i);
 			if (isSorted)
 				return nums;
 		}
@@ -182,7 +176,6 @@ public class SortDemo {
 	}
 
 	private void adjustHeapOfIndex(int[] nums, int index, int heapSize) {
-		// System.out.println("index|heapSize:" + index + "|" + heapSize);
 		int left = index * 2 + 1;
 		int right = index * 2 + 2;
 		int largest = index;
@@ -194,7 +187,6 @@ public class SortDemo {
 			swap(nums, index, largest);
 			adjustHeapOfIndex(nums, largest, heapSize);
 		}
-		// this.printArrays("adjust heap", nums);
 	}
 
 	private int[] buildMaxHeap(int[] nums) {
@@ -207,7 +199,6 @@ public class SortDemo {
 			for (int i = heapSize - 1; i >= 0; i--) { // 针对每个index,不断调整堆;
 				adjustHeapOfIndex(nums, i, heapSize);
 			}
-			// this.printArrays("build max heap:",nums);
 			swap(nums, 0, heapSize - 1); // 堆构建完成后 最大的值为nums[0],完后交换放到最后
 
 			heapSize--;
@@ -221,7 +212,6 @@ public class SortDemo {
 		long start = System.currentTimeMillis();
 		if (nums == null || nums.length == 0)
 			return null;
-		// System.out.println("start to merge sort:");
 		int[] temp = new int[nums.length];
 		mergeSort(nums, 0, nums.length - 1, temp);
 		System.out.println("Merge Sort,count time = " + (System.currentTimeMillis() - start) + "ms");
@@ -233,7 +223,6 @@ public class SortDemo {
 			int sublength = (end - start) / 2;
 			mergeSort(nums, start, start + sublength, temp);// 分别把两个子串排好序 即一直划分到只剩一个元素，则就是一个排好序的子串。
 			mergeSort(nums, start + sublength + 1, end, temp);
-			// System.out.println("Merge Sort:" + start + "|" + sublength + "|" + end);
 			mergeArrays(nums, start, start + sublength, start + sublength + 1, end, temp);// 把两个排好序的子串合并
 		}
 	}
@@ -244,7 +233,6 @@ public class SortDemo {
 
 		int tempindex = lstart;
 		int leftindex = lstart, rightindex = rstart;
-		// System.out.println("tempindex|leftindex " + tempindex + "|" + leftindex);
 		while (leftindex <= lend && rightindex <= rend) {
 			if (nums[leftindex] <= nums[rightindex]) {
 				temp[tempindex++] = nums[leftindex++];
@@ -259,11 +247,9 @@ public class SortDemo {
 		while (rightindex <= rend) {
 			temp[tempindex++] = nums[rightindex++];
 		}
-		// System.out.println("fininsh index " + tempindex + "|" + leftindex);
 		for (int k = lstart; k <= rend; k++) {// 把经过处理的数组里的值全部更新到原数组中
 			nums[k] = temp[k];
 		}
-		// this.printArrays("Merge Arrays:", nums);
 		return nums;
 	}
 
@@ -287,29 +273,19 @@ public class SortDemo {
 			for (int j = 0; j < nums.length; j++) {
 				buckets[(nums[j] / exp) % 10]++;// 保存每个余数出现的个数
 			}
-			// this.printArrays("buckets nums of exp:" + exp, buckets);
-
 			for (int l = 1; l < 10; l++) {
 				buckets[l] += buckets[l - 1];// 统计余数对应的数按顺序出现在整个数组中的位置 即余数越小 则其在数组中排在越前面
 			}
-			// this.printArrays("buckets:", buckets);
-
-			// this.printArrays("before bucket:", nums);
 			// 从数组最后往前循环 因为buckets中数据的位置从大到小递减.
 			for (int m = nums.length - 1; m >= 0; m--) {
-				// System.out.println("m, value:" + m + "|" + nums[m] + "|" +
-				// buckets[(nums[m]/exp)%10]);
-				// this.printArrays("nums:", nums);
 				temp[buckets[(nums[m] / exp) % 10] - 1] = nums[m];// 每存储一个数据后，则把buckets中对应的数据减一；
 				buckets[(nums[m] / exp) % 10]--;
-				// this.printArrays("buckets:", buckets);
 			}
 
 			for (int k = 0; k < nums.length; k++) {// 更新值
 				nums[k] = temp[k];
 			}
 
-			// this.printArrays("After bucket:" + exp, temp);
 			exp *= 10;
 		} while (max / exp > 0);
 
@@ -325,7 +301,6 @@ public class SortDemo {
 		if (nums.length <= 1)
 			return nums;
 
-		//this.printArrays("bucket sort:", nums);
 		// 先得到待排序数据的范围
 		int min = nums[0], max = nums[0];
 		for (int curvalue : nums) {
@@ -354,7 +329,6 @@ public class SortDemo {
 			int curindex = (curnum - min) / step;
 			if (curindex > buckets.length - 1)
 				curindex = buckets.length - 1;
-			System.out.println("curnum:" + curnum + ",curindex = " + curindex + ",min = " + min + ",step = " + step);
 			buckets[curindex].add(curnum);
 		}
 
@@ -406,8 +380,6 @@ public class SortDemo {
 
 		int[] temp = new int[nums.length];
 		for (int i = nums.length - 1; i >= 0; i--) {
-			// System.out.println("counts index:" + (nums[i]-min) + ",count value:" +
-			// counts[nums[i]-min]);
 			temp[counts[nums[i] - min] - 1] = nums[i];
 			counts[nums[i] - min]--;
 		}
