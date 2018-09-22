@@ -1,5 +1,11 @@
+# Project file
+.project
+.settings
+.classpath
+
 # Compiled class file
 *.class
+bin
 
 # Log file
 *.log
